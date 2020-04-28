@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="923f34e6-5072-417d-b079-10f615fff378" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ProjectId" id="1bAdt4bLz7AwnUP0R5bzXowlY57" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="923f34e6-5072-417d-b079-10f615fff378" name="Default Changelist" comment="" />
+      <created>1588079043651</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1588079043651</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="554" y="195" width="683" height="729" key="find.popup" timestamp="1588081602159">
+      <screen x="0" y="0" width="1792" height="1120" />
+    </state>
+    <state x="554" y="195" width="683" height="729" key="find.popup/0.0.1792.1120@0.0.1792.1120" timestamp="1588081602159" />
+    <state x="658" y="198" key="refactoring.ChangeSignatureDialog" timestamp="1588082138659">
+      <screen x="0" y="0" width="1792" height="1120" />
+    </state>
+    <state x="658" y="198" key="refactoring.ChangeSignatureDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1588082138659" />
+  </component>
+</project>
