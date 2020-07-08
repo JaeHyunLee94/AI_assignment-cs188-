@@ -70,31 +70,36 @@ class ReflexAgent(Agent):
 
         from math import log2
         # Useful information you can extract from a GameState (pacman.py)
-        successorGameState = currentGameState.generatePacmanSuccessor(action)
-        newPos = successorGameState.getPacmanPosition()
-        newFood = successorGameState.getFood()
-        newGhostStates = successorGameState.getGhostStates()
+        successorGameState = currentGameState.generatePacmanSuccessor(action) #successor state를 받아옴
+        newPos = successorGameState.getPacmanPosition()  # next pacman postion
+        newFood = successorGameState.getFood() # food location 에 대한 정보
+        newGhostStates = successorGameState.getGhostStates()# Info about ghost state
         newScaredTimes = [ghostState.scaredTimer for ghostState in newGhostStates]
-        newFood_list = newFood.asList()
-        ghost_dis = 20
-        food_dis = 0
-        mindis = float('inf')
 
-        if len(newFood_list) == 0:
+        newFood_list = newFood.asList() # get food location in list
+        ghost_dis = 20 # initial manhatan dis bet ghost and pacman
+        mindis = float('inf') # initialize
+
+        if len(newFood_list) == 0: # next state 가 food가 없는 상태면 큰 보상을 줌
             mindis = -10000
 
-        for food_pos in newFood_list:
+        for food_pos in newFood_list: # save the most minimum distance between pacman and food at mindis
             if manhattanDistance(food_pos, newPos) < mindis:
                 mindis = manhattanDistance(food_pos, newPos)
 
-        for ghostState in newGhostStates:
-            # if manhattanDistance(ghostState.getPosition(),newPos) <3:
+        for ghostState in newGhostStates:# pacman 과 ghost 사이의 distance
             ghost_dis += manhattanDistance(ghostState.getPosition(), newPos)
-            if manhattanDistance(ghostState.getPosition(), newPos) < 3:
+
+            if manhattanDistance(ghostState.getPosition(), newPos) < 3: # pacman과 ghost 가 너무 가까이 있으면 ghost_dis 를 작게 만들어 sensitive 하게 반응하게함
                 ghost_dis = ghost_dis * 0.0001
 
         "*** YOUR CODE HERE ***"
 
+        '''
+        mindis: 작을수록 보상이 큼
+        log2(ghost_dis): 귀신과의 거리가 클수록 보상이큼, 거리가 멀수록 insensitive, 가까울수록 sensitive 하게 반응 
+        successorGameState.getNumFood(): food 개수가 줄어들수록 보상이 커짐 
+        '''
         return -mindis + 10 * log2(ghost_dis) - 50 * successorGameState.getNumFood()
 
 
@@ -136,23 +141,33 @@ class MinimaxAgent(MultiAgentSearchAgent):
     """
 
     def minimax(self, gameState, now_depth, agentIndex):
-
+        '''
+        gameState: Current gameState
+        now_depth: Current depth
+        agentIndex: agentIndex (0: pacman else: ghost)
+        '''
         if now_depth == self.depth or gameState.isWin() or gameState.isLose():
+            #if searching reached leaf or limit depth, terminate.
             return self.evaluationFunction(gameState), []
 
         numAgent = gameState.getNumAgents()
         legal_action = gameState.getLegalActions(agentIndex)
 
-        pathList = []
+        pathList = [] #Store (score,pathlist) ex) [(30,[s,w,e,w]),(15,[w,e,s,e])]
         for action in legal_action:
             nextGameState = gameState.generateSuccessor(agentIndex, action)
+            '''
+            if pacman turn again, current_depth+1
+            (agentIndex + 1) % numAgent : next agent
+            '''
             score, path = self.minimax(nextGameState, now_depth + 1 if agentIndex == numAgent - 1 else now_depth,
-                                       (agentIndex + 1) % numAgent)
-            pathList.append((score, [action] + path))
+                                       (agentIndex + 1) % numAgent) #recursively find score,path of child node
 
-        pathList = sorted(pathList, key=lambda x: x[0])
+            pathList.append((score, [action] + path)) # add list as (score,path) tuple
 
-        return pathList[-1] if agentIndex == 0 else pathList[0]
+        pathList = sorted(pathList, key=lambda x: x[0]) # sort the list with score
+
+        return pathList[-1] if agentIndex == 0 else pathList[0] # if MaxPlayer return Maximum score, MinPlayer return minimum score
 
     def getAction(self, gameState):
         """
@@ -179,14 +194,26 @@ class MinimaxAgent(MultiAgentSearchAgent):
         """
         "*** YOUR CODE HERE ***"
 
-        return self.minimax(gameState, 0, 0)[1][0]
+        return self.minimax(gameState, 0, 0)[1][0] # return MaxPlayer's next action
 
 
 class AlphaBetaAgent(MultiAgentSearchAgent):
 
     def alphabeta(self, gameState, now_depth, agentIndex, alpha, beta):
+        '''
+        alpha:
+            if method is in minPlayer state, alpha means the Maximum value
+            that had already searched so far.
+
+        beta:
+            if method is in maxPlayer state, beta means the Minumum value
+            that had already searched so far.
+        '''
 
         if now_depth == self.depth or gameState.isWin() or gameState.isLose():
+            '''
+            same with minimax
+            '''
             return self.evaluationFunction(gameState), []
 
         numAgent = gameState.getNumAgents()
@@ -195,19 +222,27 @@ class AlphaBetaAgent(MultiAgentSearchAgent):
         pathList = []
         for action in legal_action:
             nextGameState = gameState.generateSuccessor(agentIndex, action)
+
             score, path = self.alphabeta(nextGameState, now_depth + 1 if agentIndex == numAgent - 1 else now_depth,
-                                         (agentIndex + 1) % numAgent, alpha, beta)
-            if agentIndex == 0:
+                                         (agentIndex + 1) % numAgent, alpha, beta) #same with minimax
+
+            '''
+            alpha beta pruning condition
+            '''
+            if agentIndex == 0: #In MaxPlayer:  beta cutoff
                 if score > beta:
                     return score, [action]+path
                 alpha = max(score, alpha)
-            else:
+            else: # In MinPlauer: alpha cutoff
                 if score < alpha:
                     return score, [action]+path
                 beta = min(score, beta)
 
             pathList.append((score, [action] + path))
 
+        '''
+        same with minumax
+        '''
         pathList = sorted(pathList, key=lambda x: x[0])
 
         return pathList[-1] if agentIndex == 0 else pathList[0]

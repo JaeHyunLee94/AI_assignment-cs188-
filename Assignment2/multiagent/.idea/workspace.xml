@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="923f34e6-5072-417d-b079-10f615fff378" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/multiAgents.py" beforeDir="false" afterPath="$PROJECT_DIR$/multiAgents.py" afterDir="false" />
     </list>
@@ -44,10 +43,10 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="360" y="222" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1588146289922" />
-    <state x="573" y="392" key="com.intellij.ide.util.TipDialog" timestamp="1588141151373">
+    <state x="573" y="387" key="com.intellij.ide.util.TipDialog" timestamp="1588227648211">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="573" y="392" key="com.intellij.ide.util.TipDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1588141151373" />
+    <state x="573" y="387" key="com.intellij.ide.util.TipDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1588227648211" />
     <state x="679" y="484" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1588143827875">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
